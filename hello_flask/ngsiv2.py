@@ -50,3 +50,21 @@ def update_attrs(id, attrs_val):
 def delete_attr(id,attr): 
     r = requests.delete(base_path + "/entities/" + id + "/attrs/" + attr)
     return r.status_code   
+
+
+# Para la 2ª práctica, es necesario crear un nuevo tipo de entidad llamada employee
+def create_employee(id, name, email, date_of_contract, category, salary, skills, username, password, store_id):
+    employee = {
+        "id": f"urn:ngsi-ld:Employee:{id}",
+        "type": "Employee",
+        "name": {"type": "Text", "value": name},
+        "email": {"type": "Text", "value": email},
+        "dateOfContract": {"type": "Date", "value": date_of_contract},
+        "category": {"type": "Text", "value": category},
+        "salary": {"type": "Float", "value": salary},
+        "skills": {"type": "StructuredValue", "value": skills},
+        "username": {"type": "Text", "value": username},
+        "password": {"type": "Text", "value": password},
+        "store": {"type": "Relationship", "value": f"urn:ngsi-ld:Store:{store_id}"}
+    }
+    return create_entity(employee)
