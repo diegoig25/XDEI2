@@ -20,7 +20,7 @@ def latlon_to_tile(lat_deg, lon_deg, zoom):
     return xtile, ytile
 
 
-# Ruta por defecto (HOME)
+# Ruta por defecto (al Home)
 @app.route("/")
 def home():
     return render_template("home.html")
