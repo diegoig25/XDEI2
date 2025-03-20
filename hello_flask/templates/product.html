@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}Product{% endblock %}
+
+{% block content %}
+    {% set id_items = product.id.split(':') %}
+        <p>
+            Product ID: {{id_items[3]}}<br>
+            Name: {{product.name.value}}<br>
+            Size: {{product.size.value}}<br>
+            Price: {{product.price.value}}
+        </p>
+    <table>
+        <tr>
+            <th>Store</th>
+            <th>Shelf</th>
+            <th>Shelf count</th>
+            <th>Stock count</th>
+        </tr>
+        {% for inventory_item in inventory_items %}
+        <tr>
+            {% set id_items = inventory_item.refStore.split(':') %}
+            <td>{{id_items[3]}}</td>
+            {% set id_items = inventory_item.refShelf.split(':') %}
+            <td>{{id_items[3]}}</td>
+            <td>{{inventory_item.shelfCount}}</td>
+            <td>{{inventory_item.stockCount}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

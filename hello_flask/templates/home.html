@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<div style="text-align: center;">
+    <h1>Welcome to the FIWARE Smart Store</h1>
+    
+    <!-- Logo de FIWARE -->
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FIWARE Logo" style="width: 200px; margin: 20px 0;">
+
+    <!-- Imagen del diagrama de entidades -->
+    <img src="{{ url_for('static', filename='images/diagrama.png') }}" alt="Entity Diagram" style="max-width: 80%;">
+
+</div>
+{% endblock %}

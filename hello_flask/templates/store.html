@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+    {% set id_items = store.id.split(':') %}
+        <p>
+            Store ID: {{id_items[3]}}<br>
+            Name: {{store.name.value}}<br>
+            Address: {{store.address.value.streetAddress}}<br>
+            Location: {{store.location.value.coordinates}}
+        </p>
+    <table>
+        <tr>
+            <th>Shelf</th>
+            <th>Shelf count</th>
+        </tr>
+        {% for inventory_item in inventory_items %}
+        <tr>
+            {% set id_items = inventory_item.refShelf.split(':') %}
+            <td>{{id_items[3]}}</td>
+            <td>{{inventory_item.shelfCount}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <img src="https://tile.openstreetmap.org/{{zoom}}/{{xtile}}/{{ytile}}.png" alt="Store Image" width="300" height="auto">
+
+    </script>
+{% endblock %}
