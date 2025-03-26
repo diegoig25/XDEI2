@@ -62,7 +62,7 @@ def add_employee(id, name, email, date_of_contract, category, salary, skills, us
         "dateOfContract": {"type": "Date", "value": date_of_contract},
         "category": {"type": "Text", "value": category},
         "salary": {"type": "Float", "value": salary},
-        "skills": {"type": "StructuredValue", "value": skills},
+        "skills": {"type": "Text", "value": skills},
         "username": {"type": "Text", "value": username},
         "password": {"type": "Text", "value": password},
         "store": {"type": "Relationship", "value": f"urn:ngsi-ld:Store:{store_id}"}
