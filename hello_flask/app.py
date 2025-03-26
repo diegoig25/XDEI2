@@ -1,10 +1,11 @@
 import re
 import math
+
 from datetime import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 
-from ngsiv2 import list_entities, read_entity
+from ngsiv2 import *
 
 app = Flask(__name__)
 
@@ -81,3 +82,23 @@ def hello_there(name = None):
         name=name,
         date=datetime.now()
     )
+    
+# Añadimos la creación y modificación de un Product (create_product.html)
+@app.route("/products/create", methods=['GET', 'POST']) 
+def create_product(): 
+    if request.method == 'POST': 
+        product = {"id": request.form["id"],
+                   "type": "Product", "name": {"type": "Text", "value": request.form["name"]}, 
+                   "size": {"type": "Text", "value": request.form["size"]},
+                   "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = create_entity(product) 
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('display_products')) 
+    else:
+        return render_template('create_product.html')
+        
+        
+    
