@@ -1,0 +1,12 @@
+{% comment %} {% extends 'layout.html' %}
+
+{% block title %}<h1>Employees</h1>{% endblock %}
+
+{% block content %}
+    {% for employee in employees %}
+        {% set employee_url = '/employees/' + employee.id %}
+        {% set id_items = employee.id.split(':') %}
+            <p></p>
+            <a href={{employee_url}}>Product {{id_items[3]}}</a>
+    {% endfor %}
+ {% endblock %} {% endcomment %}

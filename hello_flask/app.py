@@ -74,6 +74,22 @@ def store(id):
 
             return render_template('store.html', store=store, inventory_items=inventory_items, xtile=xtile, ytile=ytile, zoom=zoom)
 
+# @app.route("/employees/")
+# def products():
+#     (status, products) = list_entities(type='Employee', options='keyValues')
+#     if status == 200:
+#         return render_template("employees.html", products=products)
+
+# @app.route("/employees/<id>")
+# def product(id):
+#     (status, product) = read_entity(id)
+#     if status == 200:
+#         (status, inventory_items) = list_entities(type = 'InventoryItem', options='keyValues',query = f'refProduct=={id}')
+
+#         if status == 200:
+#             return render_template('product.html', product = product, inventory_items = inventory_items)
+        
+
 @app.route("/hello/")
 @app.route("/hello/<name>")
 def hello_there(name = None):
@@ -82,6 +98,8 @@ def hello_there(name = None):
         name=name,
         date=datetime.now()
     )
+    
+
 
 # Añadimos la creación y modificación de Product, Store (queda employee y modificaciones)
 
@@ -131,3 +149,26 @@ def create_store():
             return redirect(url_for('display_products')) 
     else:
         return render_template('create_store.html')
+
+# Creación de un Employee 
+@app.route("/employees/create", methods=['GET', 'POST']) 
+def create_employee(): 
+    if request.method == 'POST': 
+        employee = {"id": request.form["id"],
+                "type": "Employee",
+                "name": {"type": "Text", "value": request.form["image"]},
+                "email": {"type": "Email", "value": request.form["email"]},
+                "dateOfContract": {"type": "Date", "value": request.form["dateOfContract"]}, # no sé si el tipo Point es correcto
+                "category": {"type": "Text", "value": request.form["category"]},
+                "salary": {"type": "Float", "value": request.form["salary"]},
+                "skills": {"type": "Text", "value": request.form["skills"]},
+                "username": {"type": "Text", "value": request.form["username"]},
+                "password": {"type": "Password", "value": request.form["capacity"]}}
+        status = create_entity(employee) 
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('display_products')) 
+    else:
+        return render_template('create_employee.html')        
