@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Create Employee</title>
+    </head>
+    <body>
+        <h2>Create a New Employee</h2>
+
+        <form action="/employees/create" method="post">
+            <label for="id">Id:</label>
+            <input type="text" id="id" name="id"><br>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="dateOfContract">Date of Contract:</label>
+            <input type="date" id="dateOfContract" name="dateOfContract"><br>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category">
+                <option value="Manager">Manager</option>
+                <option value="Regular">Regular</option>
+                <option value="Intern">Intern</option>
+            </select><br>
+
+            <label for="salary">Salary:</label>
+            <input type="number" id="salary" name="salary"><br>
+
+            <label for="skills">Skills (Select multiple):</label><br>
+            <input type="checkbox" id="MachineryDriving" name="skills" value="MachineryDriving"> Machinery Driving<br>
+            <input type="checkbox" id="WritingReports" name="skills" value="WritingReports"> Writing Reports<br>
+            <input type="checkbox" id="CustomerRelationships" name="skills" value="CustomerRelationships"> Customer Relationships<br>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br>
+
+            <input type="submit" value="Create Employee">
+            <input type="reset" value="Cancel">
+        </form> 
+    </body>
+</html>
