@@ -125,6 +125,8 @@ def create_product():
 
 
 # Creación de un Store (duda en el tipo de location y address, también en el html)
+# para trabajar con location, solicitamos al cliente la latitud y longitud, de forma 
+# que creamos automáticamente la lista de coordenadas nosotros, sin necesidad de que tenga que ponerlo él
 @app.route("/stores/create", methods=['GET', 'POST']) 
 def create_store(): 
     if request.method == 'POST': 
@@ -132,7 +134,7 @@ def create_store():
                 "type": "Store",
                 "name": {"type": "Text", "value": request.form["image"]},
                 "address": {"type": "PostalAddress", "value": request.form["address"]},
-                "location": {"type": "Point", "value": request.form["location"]}, # no sé si el tipo Point es correcto
+                "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [float(request.form["longitude"]), float(request.form["latitude"])]}}, 
                 "image": {"type": "Text", "value": request.form["image"]},
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
@@ -158,7 +160,7 @@ def create_employee():
                 "type": "Employee",
                 "name": {"type": "Text", "value": request.form["image"]},
                 "email": {"type": "Email", "value": request.form["email"]},
-                "dateOfContract": {"type": "Date", "value": request.form["dateOfContract"]}, # no sé si el tipo Point es correcto
+                "dateOfContract": {"type": "Date", "value": request.form["dateOfContract"]}, 
                 "category": {"type": "Text", "value": request.form["category"]},
                 "salary": {"type": "Float", "value": request.form["salary"]},
                 "skills": {"type": "Text", "value": request.form["skills"]},
