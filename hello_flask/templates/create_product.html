@@ -6,7 +6,7 @@
     </head>
     <body>
         <h2>Create a New Product</h2>
-        <form action="/products/create"> 
+        <form action="/stores/create"> 
             <label for="id">Id:</label><br> 
             <input type="text" id="id" name="id"><br> 
             <label for="name">Name:</label><br>
@@ -14,8 +14,13 @@
             <label for="size">Size:</label><br>
             <input type="text" id="size" name="size"><br>
             <label for="price">Price:</label><br> 
-            <input type="number" id="price" name="price"><br><br>
-            <input type="submit" value="Submit"> 
+            <input type="number" id="price" name="price"><br>
+            <label for="color">Color:</label><br>
+            <input type="text" id="color" name="color"><br>
+            <label for="image">Image:</label><br>
+            <input type="text" id="image" name="image"><br><br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Cancel">
         </form> 
     </body>
 </html>

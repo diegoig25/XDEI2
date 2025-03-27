@@ -82,15 +82,20 @@ def hello_there(name = None):
         name=name,
         date=datetime.now()
     )
-    
-# Añadimos la creación y modificación de un Product (create_product.html)
+
+# Añadimos la creación y modificación de Product, Store (queda employee y modificaciones)
+
+# Creación de un Product
 @app.route("/products/create", methods=['GET', 'POST']) 
 def create_product(): 
     if request.method == 'POST': 
         product = {"id": request.form["id"],
-                   "type": "Product", "name": {"type": "Text", "value": request.form["name"]}, 
+                   "type": "Product", 
+                   "name": {"type": "Text", "value": request.form["name"]}, 
                    "size": {"type": "Text", "value": request.form["size"]},
-                   "price": {"type": "Integer", "value": int(request.form["price"])}}
+                   "price": {"type": "Integer", "value": int(request.form["price"])},
+                   "image": {"type": "Text", "value": request.form["image"]},
+                   "color": {"type": "Text", "value": request.form["color"]}}
         status = create_entity(product) 
         if status == 201:
             next = request.args.get('next', None)
@@ -99,6 +104,30 @@ def create_product():
             return redirect(url_for('display_products')) 
     else:
         return render_template('create_product.html')
-        
-        
-    
+
+
+# Creación de un Store (duda en el tipo de location y address, también en el html)
+@app.route("/stores/create", methods=['GET', 'POST']) 
+def create_store(): 
+    if request.method == 'POST': 
+        store = {"id": request.form["id"],
+                "type": "Store",
+                "name": {"type": "Text", "value": request.form["image"]},
+                "address": {"type": "PostalAddress", "value": request.form["address"]},
+                "location": {"type": "Point", "value": request.form["location"]}, # no sé si el tipo Point es correcto
+                "image": {"type": "Text", "value": request.form["image"]},
+                "url": {"type": "Text", "value": request.form["url"]},
+                "telephone": {"type": "Text", "value": request.form["telephone"]},
+                "countryCode": {"type": "Text", "value": request.form["country_code"]},
+                "capacity": {"type": "Float", "value": request.form["capacity"]},
+                "description": {"type": "Text", "value": request.form["description"]},
+                "temperature": {"type": "Float", "value": request.form["temperature"]},
+                "relativeHumidity": {"type": "Float", "value": request.form["relativeHumidity"]}}
+        status = create_entity(store) 
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('display_products')) 
+    else:
+        return render_template('create_store.html')
