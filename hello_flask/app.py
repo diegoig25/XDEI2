@@ -74,30 +74,30 @@ def store(id):
 
             return render_template('store.html', store=store, inventory_items=inventory_items, xtile=xtile, ytile=ytile, zoom=zoom)
 
+# # Definimos la ruta a Employee
 # @app.route("/employees/")
-# def products():
-#     (status, products) = list_entities(type='Employee', options='keyValues')
+# def employees():
+#     (status, employees) = list_entities(type='Employee', options='keyValues')
 #     if status == 200:
-#         return render_template("employees.html", products=products)
+#         return render_template("employees.html", employees=employees)
 
 # @app.route("/employees/<id>")
-# def product(id):
-#     (status, product) = read_entity(id)
+# def employee(id):
+#     (status, employee) = read_entity(id)
+#     # if status == 200:
+#     #     (status, inventory_items) = list_entities(type = 'InventoryItem', options='keyValues',query = f'refProduct=={id}')
+
 #     if status == 200:
-#         (status, inventory_items) = list_entities(type = 'InventoryItem', options='keyValues',query = f'refProduct=={id}')
+#         return render_template('employee.html', employee = employee) #, inventory_items = inventory_items)        
 
-#         if status == 200:
-#             return render_template('product.html', product = product, inventory_items = inventory_items)
-        
-
-@app.route("/hello/")
-@app.route("/hello/<name>")
-def hello_there(name = None):
-    return render_template(
-        "hello_there.html",
-        name=name,
-        date=datetime.now()
-    )
+# @app.route("/hello/")
+# @app.route("/hello/<name>")
+# def hello_there(name = None):
+#     return render_template(
+#         "hello_there.html",
+#         name=name,
+#         date=datetime.now()
+#     )
     
 
 
@@ -139,10 +139,10 @@ def create_store():
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
                 "countryCode": {"type": "Text", "value": request.form["country_code"]},
-                "capacity": {"type": "Float", "value": request.form["capacity"]},
+                "capacity": {"type": "Integer", "value": int(request.form["capacity"])},
                 "description": {"type": "Text", "value": request.form["description"]},
-                "temperature": {"type": "Float", "value": request.form["temperature"]},
-                "relativeHumidity": {"type": "Float", "value": request.form["relativeHumidity"]}}
+                "temperature": {"type": "Integer", "value": int(request.form["temperature"])},
+                "relativeHumidity": {"type": "Integer", "value": int(request.form["relativeHumidity"])}}
         status = create_entity(store) 
         if status == 201:
             next = request.args.get('next', None)
@@ -162,7 +162,7 @@ def create_employee():
                 "email": {"type": "Email", "value": request.form["email"]},
                 "dateOfContract": {"type": "Date", "value": request.form["dateOfContract"]}, 
                 "category": {"type": "Text", "value": request.form["category"]},
-                "salary": {"type": "Float", "value": request.form["salary"]},
+                "salary": {"type": "Integer", "value": int(request.form["salary"])},
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Password", "value": request.form["capacity"]}}
@@ -173,4 +173,6 @@ def create_employee():
                 return redirect(next)
             return redirect(url_for('display_products')) 
     else:
-        return render_template('create_employee.html')        
+        return render_template('create_employee.html') 
+    
+       
