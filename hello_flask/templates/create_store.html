@@ -8,13 +8,13 @@
         <h2>Create a New Store</h2>
         <form action="/stores/create"> 
             <label for="id">Id:</label><br> 
-            <input type="text" id="id" name="id"><br> 
+            <input type="text" id="id" name="id" required><br> 
 
             <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br> 
+            <input type="text" id="name" name="name" required><br> 
 
             <label for="address">Address:</label><br>
-            <input type="text" id="address" name="address"><br><br>
+            <input type="text" id="address" name="address" required><br><br>
 
             <label for="latitude">Latitude:</label><br>
             <input type="number" step="any" id="latitude" name="latitude"><br>
@@ -30,7 +30,7 @@
             <input type="url" id="url" name="url"><br>
 
             <label for="telephone">Telephone:</label><br> 
-            <input type="tel" id="telephone" name="telephone"><br> 
+            <input type="tel" id="telephone" name="telephone" required><br> 
 
             <label for="countryCode">Country Code:</label><br>
             <input type="text" id="countryCode" name="countryCode" maxlength="2"><br>

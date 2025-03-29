@@ -175,4 +175,23 @@ def create_employee():
     else:
         return render_template('create_employee.html') 
     
-       
+
+# Creación de una Shelf dentro de una Store (para ello, podemos entrar en alguno de los stores
+# de la página web e introducir a continuación /shelves/create)
+@app.route("/stores/<store_id>/shelves/create", methods=['GET', 'POST'])
+def create_shelf(store_id):
+    if request.method == 'POST':
+        shelf = {"id": request.form["id"],
+                "type": "Shelf",
+                "name": {"type": "Text", "value": request.form["image"]},
+                "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [float(request.form["longitude"]), float(request.form["latitude"])]}},
+                "maxCapacity": {"type": "Integer", "value": request.form["maxCapacity"]}, 
+                "refStore": {"type": "Relationship", "value": f"urn:ngsi-ld:Store:{store_id}"}}  # Relación con el Store}
+        status = create_entity(shelf) 
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('store', id=store_id)) 
+    else:
+        return render_template('create_shelf.html', store_id=store_id) 
