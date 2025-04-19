@@ -1,12 +1,67 @@
 {% extends 'layout.html' %}
 
-{% block title %}<h1>Employees</h1>{% endblock %}
-
+{% block title %}Employees{% endblock %}
+    
 {% block content %}
-    {% for employee in employees %}
-        {% set employee_url = '/employees/' + employee.id %}
-        {% set id_items = employee.id.split(':') %}
-            <p></p>
-            <a href={{employee_url}}>Employee {{id_items[3]}}</a>
-    {% endfor %}
-{% endblock %} 
+    <h2 class="header">EMPLOYEES</h2>
+    <p></p>
+    <button id="create_button_emp" class="button">Add employee</button>
+    <p></p>
+        
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Not image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Skills</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                {% set employee_url = '/employees/' + employee.id %}
+                {% set id = employee.id %}
+                {% set name = employee.name %}
+                {% set category = employee.category %}
+                {% set skills = employee.skills %}
+                    
+                <tr>
+                    <td><a href="{{ employee_url }}" class="link">{{ name }}</a></td>
+                    <td><i class="fa-solid fa-user-tie"></i> {{ category }}</td>
+                    <td>
+                        {% if skills == 'MachineryDriving' %}
+                            <i class="fa-solid fa-truck"></i> {{ skills }}
+                        {% elif skills == 'WritingReports' %}
+                            <i class="fa-solid fa-pencil"></i> {{ skills }}
+                        {% elif skills == 'CustomerRelationships' %}
+                            <i class="fa-solid fa-people-arrows"></i> {{ skills }}
+                        {% endif %}
+                    </td>
+                    <td><button class="button" onclick="modifyemployeeButton('{{id}}')">Modify</button></td>
+                    <td><button class="button" onclick="deleteemployeeButton('{{id}}')">Delete</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        var createEmployeeButton = document.getElementById("create_button_emp");
+    
+        createEmployeeButton.addEventListener("click", function() {
+            window.location.href = "/employees/create";
+        });
+    
+        function modifyemployeeButton(id){
+            window.location.href = "/employees/" + id + "/update";
+        } 
+  
+        function deleteemployeeButton(id){
+            var confirmation = confirm("Are you sure?");
+            if (confirmation) {
+                window.location.href = "/employees/" + id + "/delete";
+            }
+        } 
+    </script>
+{% endblock %}

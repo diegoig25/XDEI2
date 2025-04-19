@@ -8,23 +8,31 @@
         <h2>Create a New Store</h2>
         <form action="/stores/create"> 
             <label for="id">Id:</label><br> 
-            <input type="text" id="id" name="id" required><br> 
+            <input type="text" id="id" name="id" pattern="^urn:ngsi-ld:Store:\d+" placeholder="urn:ngsi-ld:Store:<number_id>" required><br> 
 
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name" required><br> 
 
-            <label for="address">Address:</label><br>
-            <input type="text" id="address" name="address" required><br><br>
+            <label for="address">Street Address:</label><br>
+            <input type="text" id="streetAddress" name="streetAddress" required><br>
+
+            <label for="region">Region:</label><br>
+            <input type="text" id="region" name="region" required><br>
+
+            <label for="locality">Locality:</label><br>
+            <input type="text" id="locality" name="locality" required><br>
+
+            <label for="code">Postal Code:</label><br>
+            <input type="number" id="code" name="code" required><br>
 
             <label for="latitude">Latitude:</label><br>
-            <input type="number" step="any" id="latitude" name="latitude"><br>
+            <input type="number" step="any" id="latitude" name="latitude" placeholder="e.g.: 32.565" pattern="\d{1,2}\.\d+" required><br>
 
             <label for="longitude">Longitude:</label><br>
-            <input type="number" step="any" id="longitude" name="longitude"><br><br>
+            <input type="number" step="any" id="longitude" name="longitude" placeholder="e.g.: 56.123" pattern="\d{1,2}\.\d+" required><br>
 
-
-            <label for="image">Image:</label><br>
-            <input type="text" id="color" name="color"><br>
+            <label for="image">Image:</label>
+            <input type="file" style="width: 40%;" id="image" name="image" accept="image/*" required><br>
 
             <label for="url">Url:</label><br>
             <input type="url" id="url" name="url"><br>
@@ -35,8 +43,8 @@
             <label for="countryCode">Country Code:</label><br>
             <input type="text" id="countryCode" name="countryCode" maxlength="2"><br>
 
-            <label for="capacity">Capacity (in cubic metres):</label><br>
-            <input type="number" id="capacity" name="capacity"><br>
+            <label for="capacity">Capacity:</label><br>
+            <input type="number" id="capacity" name="capacity" placeholder="m3"><br>
 
             <label for="description">Description:</label><br>
             <input type="text" id="description" name="description"><br>

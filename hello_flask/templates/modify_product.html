@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Modify Product</title>
+    </head>
+    <body>
+        <h2>Modify a Product</h2>
+
+        <form action="/products/{{product.id}}/update" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{product.name.value}}" required><br>
+
+            <label for="size">Size:</label><br>
+            <select id="size" name="size">
+                <option value="S" {%="" if="" product.size.value="=" "s"="" %}="" selected{%="" endif="">S</option>
+                <option value="M" {%="" if="" product.size.value="=" "m"="" %}="" selected{%="" endif="">M</option>
+                <option value="L" {%="" if="" product.size.value="=" "l"="" %}="" selected{%="" endif="">L</option>
+            </select><br>
+
+            <label for="price">Price:</label><br>
+            <input type="number" id="price" name="price" value={{product.price.value}} required><br>
+
+            <label for="image">Image:</label><br>
+            <input type="text" id="image" name="image" value={{imgb64}} required><br>
+
+            <label for="color">Color:</label><br>
+            <input type="text" id="color" name="color" value={{product.color.value}} required><br><br>
+
+            <input type="submit" value="Update Product">
+            <input type="reset" value="Cancel">
+        </form> 
+    </body>
+</html>

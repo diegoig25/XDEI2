@@ -8,7 +8,7 @@
         <h2>Create a New Product</h2>
         <form action="/stores/create"> 
             <label for="id">Id:</label><br> 
-            <input type="text" id="id" name="id" required><br> 
+            <input type="text" id="id" name="id" pattern="^urn:ngsi-ld:Product:\d+" placeholder="urn:ngsi-ld:Product:<number_id>" required><br> 
 
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name" required><br> 
@@ -20,10 +20,10 @@
             <input type="number" id="price" name="price" required><br>
 
             <label for="color">Color:</label><br>
-            <input type="text" id="color" name="color"><br>
+            <input type="text" id="color" name="color" placeholder="RGB hexadecimal" required><br>
 
-            <label for="image">Image:</label><br>
-            <input type="text" id="image" name="image"><br><br>
+            <label for="image">Image:</label>
+            <input type="file" style="width: 40%;" id="image" name="image" accept="image/*" required=""><br><br>
 
             <input type="submit" value="Create Product">
             <input type="reset" value="Cancel">

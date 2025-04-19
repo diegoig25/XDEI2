@@ -5,11 +5,12 @@
         <title>Create Shelf</title>
     </head>
     <body>
+
         <h2>Create a New Shelf</h2>
 
-        <form action="/stores/{{ store_id }}/shelves/create" method="post">
+        <form action="/stores/{{store_id}}/create_shelf" method="post">
             <label for="id">Id:</label>
-            <input type="text" id="id" name="id" required><br>
+            <input type="text" id="id" name="id" pattern="^urn:ngsi-ld:Shelf:unit\d+" placeholder="urn:ngsi-ld:Shelf:unit<number_id>" required><br>
 
             <label for="name">Shelf Name:</label>
             <input type="text" id="name" name="name" required><br>
@@ -28,3 +29,5 @@
         </form> 
     </body>
 </html>
+
+

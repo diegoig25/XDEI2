@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Inventory Item{% endblock %}
+
+{% block content %}
+<form action="/products/{{ product.id }}/{{ store.id }}/create_inventoryitem" method="POST" id="invitemForm">
+    <label for="id">Id:</label><br>
+    <input type="text" id="id" name="id" pattern="^urn:ngsi-ld:InventoryItem:\d+" placeholder="urn:ngsi-ld:InventoryItem:<number_id>" title="Id should be -> urn:ngsi-ld:InventoryItem:<number_id>" required><br>
+    
+    <label for="refShelf">Shelf:</label><br>
+    <select id="refShelf" name="refShelf" required>
+        {% if shelves_available %}
+            {% for shelf in shelves_available %}
+                <option value="{{shelf}}">{{shelf}}</option>
+            {% endfor %}
+        {% else %}
+            <option value="" disabled>No shelves available</option>
+        {% endif %}
+    </select><br>
+
+    <label for="shelfCount">Shelf Count:</label><br>
+    <input type="number" id="shelfCount" name="shelfCount" min="0" required><br>
+    
+    <label for="stockCount">Stock Count:</label><br>
+    <input type="number" id="stockCount" name="stockCount" min="0" required><br>
+    
+    <input type="submit" value="Create Employee">
+    <input type="reset" value="Cancel">
+</form>

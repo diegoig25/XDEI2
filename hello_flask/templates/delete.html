@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete{% endblock %}
+
+{% block content %}
+    {% set id_items = ids.split(':') %}
+    {% set type_item = id_items[2] | lower %}
+    {% set url = '/' + type_item + 's' %}
+
+    <p>{{ id_items[2] }} with ID ({{ id_items[3] }}) was deleted.</p>
+    <p></p>
+    <a href="{{url}}" class="link">Go back to {{id_items[2]}}s</a>
+{% endblock %}

@@ -1,12 +1,54 @@
 {% extends 'layout.html' %}
 
-{% block title %}<h1>Products</h1>{% endblock %}
+{% block title %}Products{% endblock %}
 
 {% block content %}
-    {% for product in products %}
-        {% set product_url = '/products/' + product.id %}
-        {% set id_items = product.id.split(':') %}
-            <p></p>
-            <a href={{product_url}}>Product {{id_items[3]}}</a>
-    {% endfor %}
- {% endblock %}
+    <h2 class="header">PRODUCTS</h2>
+    <p></p>
+    <button id="create_button_pr" class="button">Create product</button>
+    <p></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product, img in prods_imgs %}
+                <tr>
+                    <td><img src="data:image;base64,{{ img }}" style="width: 100px; height: auto;"></td>
+                    <td><a href="/products/{{ product.id }}" class="link">{{ product.name }}</a></td>
+                    <td><i class="fa-solid fa-square fa-bounce" style="color: {{ product.color }};"></i> {{ product.color }}</td>
+                    <td>{{ product.size }}</td>
+                    <td><button class="button" onclick="modifyproductButton('{{ product.id }}')">Modify</button></td>
+                    <td><button class="button" onclick="deleteproductButton('{{ product.id }}')">Delete</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        var createProductButton = document.getElementById("create_button_pr");
+
+        createProductButton.addEventListener("click", function() {
+            window.location.href = "/products/create";
+        });
+
+        function modifyproductButton(id){
+            window.location.href = "/products/" + id + "/update";
+        } 
+
+        function deleteproductButton(id){
+            var confirmation = confirm("Are you sure?");
+            if (confirmation) {
+                window.location.href = "/products/" + id + "/delete";
+            }
+        }
+    </script>
+{% endblock %}

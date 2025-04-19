@@ -9,7 +9,7 @@
 
         <form action="/employees/create" method="post">
             <label for="id">Id:</label>
-            <input type="text" id="id" name="id" required><br>
+            <input type="text" id="id" name="id" pattern="^urn:ngsi-ld:Employee:\d+" placeholder="urn:ngsi-ld:Employee:<number_id>" required><br>
 
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br>

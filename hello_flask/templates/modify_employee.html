@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Modify Employee</title>
+    </head>
+    <body>
+        <h2>Modify a Employee</h2>
+
+        <form action="/employees/{{employee.id}}/update" method="post">
+
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" value={{employee.name.value}} required><br>
+
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" value={{employee.email.value}} pattern="\S+@\S+\.\S+" required><br>
+
+            <label for="dateOfContract">Date of Contract:</label><br>
+            <input type="date" id="dateOfContract" name="dateOfContract" value={{employee.dateOfContract.value}} required><br>
+
+            <label for="category">Category:</label><br>
+            <select id="category" name="category">
+                <option value="Manager" {%="" if="" employee.category.value="=" "manager"="" %}="" selected{%="" endif="">Manager</option>
+                <option value="Regular" {%="" if="" employee.category.value="=" "regular"="" %}="" selected{%="" endif="">Regular</option>
+                <option value="Intern" {%="" if="" employee.category.value="=" "intern"="" %}="" selected{%="" endif="">Intern</option>
+            </select><br> 
+
+            <label for="salary">Salary:</label><br>
+            <input type="number" id="salary" name="salary" value="{{employee.salary.value}}" required><br>
+
+            <label for="skills">Skills:</label><br>
+
+            <select id="skills" name="skills" multiple="" required>
+                <option value="MachineryDriving" {%="" if="" "machinerydriving"="" in="" employee.skills.value="" %}="" selected{%="" endif="">Machinery Driving</option>
+                <option value="WritingReports" {%="" if="" "writingreports"="" in="" employee.skills.value="" %}="" selected{%="" endif="">Writing Reports</option>
+                <option value="CustomerRelationships" {%="" if="" "customerrelationships"="" in="" employee.skills.value="" %}="" selected{%="" endif="">Customer Relationships</option>
+            </select><br>
+
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" value={{employee.username.value}} required><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" value="{{employee.password.value}}" required><br>
+
+            <input type="submit" value="Modify Employee">
+            <input type="reset" value="Cancel">
+        </form>
+    </body>
+</html>

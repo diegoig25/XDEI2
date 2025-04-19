@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Modify Store</title>
+    </head>
+    <body>
+        <h2>Modify a Store</h2>
+
+        <form action="/stores/{{store.id}}/update" method="post">
+
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" value="{{store.name.value}}" required><br>
+
+            <label for="streetAddress">Street address:</label><br>
+            <input type="text" id="streetAddress" name="streetAddress" value="{{store.address.value.streetAddress}}" required><br>
+
+            <label for="region">Region:</label><br>
+            <input type="text" id="region" name="region" value="{{store.address.value.addressRegion}}" required><br>
+
+            <label for="locality">Locality:</label><br>
+            <input type="text" id="locality" name="locality" value="{{store.address.value.addressLocality}}" required><br>
+
+            <label for="code">Postal Code:</label><br>
+            <input type="number" id="code" name="code" value="{{store.address.value.postalCode}}" required><br>
+
+            <label for="location">Location:</label><br>
+            <input type="text" id="location" name="location" value="{{store.location.value.coordinates[0]}}, {{store.location.value.coordinates[1]}}" pattern="\d{1,2}\.\d+, \d{1,2}\.\d+" required><br>
+
+            <label for="capacity">Capacity (m<sup>3</sup>):</label><br>
+            <input type="number" id="capacity" name="capacity" value={{store.capacity.value}} required><br>
+
+            <label for="countryCode">Country Code:</label><br>
+            <input type="text" id="countryCode" name="countryCode" maxlength="2" value={{store.countryCode.value}} required><br>
+
+            <label for="image">Image:</label><br>
+            <img id="current-image" src="data:image;base64,{{imgb64}}" style="width: 100px; height: auto;"><br>
+            <input type="file" id="image" style="width: 60%;" name="image" accept="image/*"><br>
+
+            <label for="url">URL:</label><br>
+            <input type="url" id="url" name="url" value={{store.url.value}} required><br>
+
+            <label for="telephone">Telephone:</label><br>
+            <input type="number" id="telephone" name="telephone" value={{store.telephone.value}} required><br><br>
+
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description">{{store.description.value}}</textarea><br><br>
+
+            <input type="submit" value="Update Store">
+            <input type="reset" value="Cancel">
+        </form>
+    </body>
+</html>
+        

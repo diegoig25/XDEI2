@@ -1,12 +1,89 @@
 {% extends 'layout.html' %}
 
-{% block title %}<h1>Stores</h1>{% endblock %}
+{% block title %}Stores{% endblock %}
 
 {% block content %}
-    {% for store in stores %}
-        {% set store_url = '/stores/' + store.id %}
-        {% set id_items = store.id.split(':') %}
-            <p></p>
-            <a href={{store_url}}>Store {{id_items[3]}}</a>
-    {% endfor %}
- {% endblock %}
+    <h2 class="header">STORE LIST:</h2>
+    <p></p>
+    <button id="create_button_st" class="button">Create store</button>
+    <p></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Country Code</th>
+                <th>Temperature</th>
+                <th>Relative Humidity</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for store, img in stores_imgs %}
+                {% set store_url = '/stores/' + store.id %}
+                {% set id = store.id %}
+                {% set name = store.name %}
+                {% set countryCode = store.countryCode %}
+                {% set temperature = store.temperature %}
+                {% set relativeHumidity = store.relativeHumidity %}
+                {% set flag_img = '/static/' + countryCode + '.png' %}
+
+                <tr>
+                    <td><img src="data:image;base64,{{ img }}" style="width: 100px; height: auto;"></td>
+                    <td><a href="{{ store_url }}" class="link">{{ name }}</a></td>
+                    <td>
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <span>{{ countryCode }}</span>
+                            <img src="{{ flag_img }}" style="height: 20px; width: 20px; margin-left: 5px;">
+                        </div>
+                    </td>
+                    <td>
+                        {{ temperature }} °C
+                        {% if temperature <= 15 %}
+                            <i class="fa-solid fa-temperature-empty" style="color:blue;"></i>
+                        {% elif temperature > 15 and temperature < 30 %}
+                            <i class="fa-solid fa-temperature-half" style="color:green;"></i>
+                        {% elif temperature >= 30 %}
+                            <i class="fa-solid fa-temperature-full" style="color:red;"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ relativeHumidity }} %
+                        {% if relativeHumidity <= 20 %}
+                            <span class="material-symbols-outlined">humidity_low</span>
+                        {% elif relativeHumidity > 20 and relativeHumidity < 50 %}
+                            <span class="material-symbols-outlined">humidity_mid</span>
+                        {% elif relativeHumidity >= 50 %}
+                            <span class="material-symbols-outlined">humidity_high</span>
+                        {% endif %}
+                    </td>
+                    <td><button class="button" onclick="modifystoreButton('{{ id }}')">Modify</button></td>
+                    <td><button class="button" onclick="deletestoreButton('{{ id }}')">Delete</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        var createStoreButton = document.getElementById("create_button_st");
+
+        createStoreButton.addEventListener("click", function() {
+            window.location.href = "/stores/create";
+        });
+
+        function modifystoreButton(id){
+            window.location.href = "/stores/" + id + "/update";
+        } 
+
+        function deletestoreButton(id){
+            var confirmation = confirm("Are you sure?");
+            if (confirmation) {
+                window.location.href = "/stores/" + id + "/delete";
+            }
+        } 
+    </script>
+{% endblock %}
+
+

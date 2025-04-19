@@ -3,29 +3,51 @@
 {% block title %}Product{% endblock %}
 
 {% block content %}
-    {% set id_items = product.id.split(':') %}
-        <p>
-            Product ID: {{id_items[3]}}<br>
-            Name: {{product.name.value}}<br>
-            Size: {{product.size.value}}<br>
-            Price: {{product.price.value}}
-        </p>
-    <table>
-        <tr>
-            <th>Store</th>
-            <th>Shelf</th>
-            <th>Shelf count</th>
-            <th>Stock count</th>
-        </tr>
+    <h2 class="header">{{product.name.value}}</h2>
+
+    {% set visited_stores = [] %}
+        
+    {% if not inventory_items %}
+        <p>There are not stores with this product. You can add it in the store section.</p>
+    {% else %}
         {% for inventory_item in inventory_items %}
-        <tr>
-            {% set id_items = inventory_item.refStore.split(':') %}
-            <td>{{id_items[3]}}</td>
-            {% set id_items = inventory_item.refShelf.split(':') %}
-            <td>{{id_items[3]}}</td>
-            <td>{{inventory_item.shelfCount}}</td>
-            <td>{{inventory_item.stockCount}}</td>
-        </tr>
+            {% set store_id = inventory_item.refStore %}
+                
+            {% if store_id not in visited_stores %}
+                {% set visited_stores = visited_stores.append(store_id) %}
+                {% set id_items = inventory_item.refStore.split(':') %}
+                    
+                <h3 class="paragraph">Inventory for Store {{ id_items[3] }}:</h3>
+                <button class="button" onclick="createinventoryitemButton('{{store_id}}')">Add Inventory Item</button>
+                <p></p>
+                
+                <table class="table2">
+                    <tbody>
+                        <tr style="background-color: rgb(147, 237, 249);">
+                            <td>Name Store: {{store.name}}</td>
+                            <td>Stock Count: {{ inventory_item.stockCount }}</td>
+                        </tr>
+                            
+                        {% for store in stores %}
+                            {% if store.id == store_id %}
+                                {% set id_items = inventory_item.refShelf.split(':') %}
+                                <tr>
+                                    <td>Shelf {{ id_items[3] }}</td>
+                                    <td>Shelf Count: {{inventory_item.shelfCount}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+            {% endif %}
         {% endfor %}
-    </table>
+    {% endif %}
+
+    <script>
+        function createinventoryitemButton(store_id){
+            window.location.href = "/products/{{product.id}}/" + store_id + "/create_inventoryitem";
+        }
+    </script>
 {% endblock %}
+

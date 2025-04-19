@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Modify Shelf</title>
+    </head>
+    <body>
+        <h2>Modify a Shelf</h2>
+
+        <form action="/stores/{{store.id}}/{{shelf.id}}/update" method="post">
+
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" value="{{shelf.name.value}}"  required><br> 
+
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" name="{{shelf.location.value.coordinates[1]}}" pattern="\d{1,2}\.\d+" placeholder="e.g: 3.4545" required><br>
+
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" name="{{shelf.location.value.coordinates[0]}}" pattern="\d{1,2}\.\d+" placeholder="e.g: 52.75684" required><br>
+
+            <label for="maxCapacity">Max Capacity:</label>
+            <input type="number" id="maxCapacity" name="{{shelf.maxCapacity.value}}" min="0" required><br><br>
+
+            <input type="submit" value="Modify Shelf">
+            <input type="reset" value="Cancel">
+        </form> 
+    </body>
+</html>
+
+
+
+
+<html><head></head><body>{% extends "layout.html" %}
+    {% block title %}Create shelf{% endblock %}
+    {% block content %}
+    <form action="/stores/{{store.id}}/{{shelf.id}}/update" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{shelf.name.value}}" required=""><br> 
+        <label for="maxCapacity">Max Capacity:</label><br>
+        <input type="number" id="maxCapacity" name="maxCapacity" value="{{shelf.maxCapacity.value}}" required=""><br>
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location" value="{{shelf.location.value.coordinates[0]}}, {{shelf.location.value.coordinates[1]}}" required="" pattern="\d{1,2}\.\d+, \d{1,2}\.\d+"><br>
+    </form> 
