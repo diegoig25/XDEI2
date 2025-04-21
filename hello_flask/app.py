@@ -4,8 +4,7 @@ import base64
 
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-from flask_socketio import SocketIO, emit
-
+# from flask_socketio import SocketIO, emit
 from ngsiv2 import *
 
 app = Flask(__name__)
@@ -13,12 +12,12 @@ app = Flask(__name__)
 # Cargamos los datos de la función load de ngsiv2
 load()
 
-# Informa de las actualizaciones a los clientes
-socketio = SocketIO(app)
+# # Informa de las actualizaciones a los clientes
+# socketio = SocketIO(app)
 
-@socketio.on('update_notification')
-def handle_connect(data):
-    socketio.emit('update_notification',data)
+# @socketio.on('update_notification')
+# def handle_connect(data):
+#     socketio.emit('update_notification',data)
 
 
 # Creamos esta función para obtener los tiles de OpenStreetMap (en la función store se calculan los valores 
@@ -61,13 +60,14 @@ def display_products():
         return render_template("products.html", prods_imgs=prods_imgs)
 
 @app.route("/products/<id>")
-def product(id):
+def display_product(id):
     (status, product) = read_entity(id)
     if status == 200:
         (status, inventory_items) = list_entities(type = 'InventoryItem', options='keyValues',query = f'refProduct=={id}')
-
         if status == 200:
-            return render_template('product.html', product = product, inventory_items = inventory_items)
+            (status, stores) = list_entities(type = 'Store', options = 'keyValues')
+            if status == 200:
+                return render_template('product.html', product = product, stores = stores, inventory_items = inventory_items)
         
 @app.route("/stores/")
 def display_stores():
@@ -439,7 +439,7 @@ def create_inventoryitem(id_product, id_store):
         return render_template('create_inventoryitem.html', product = product, store = store, shelves_available = shelves_available)
 
 
-if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0")
+# if __name__ == '__main__':
+#     socketio.run(app, host="0.0.0.0")
     
 # CAMBIAR LO DE STORES HTML !!!! (LO DE HUMIDITY > 20 Y ESO)
